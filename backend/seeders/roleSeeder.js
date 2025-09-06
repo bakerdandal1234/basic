@@ -14,7 +14,6 @@ const seedRolesAndAdmin = async () => {
             { name: 'superadmin', permissions: ['read', 'write', 'update', 'delete', 'manage_users', 'manage_roles', 'all_access'] }
         ];
 
-        // تأكد من وجود الأدوار
         for (const roleData of rolesToSeed) {
             const existingRole = await Role.findOne({ name: roleData.name });
             if (!existingRole) {
@@ -25,10 +24,8 @@ const seedRolesAndAdmin = async () => {
             }
         }
 
-        // اجلب الـ role admin من قاعدة البيانات
         const adminRole = await Role.findOne({ name: 'admin' });
 
-        // تحقق إن مستخدم admin موجود
         const existingAdmin = await User.findOne({ email: 'admin@example.com' });
         if (!existingAdmin) {
             await User.create({
